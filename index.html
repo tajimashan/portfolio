@@ -3,151 +3,113 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jarif Ahsan | Lifestyle</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>Jarif Ahsan | Digital Space</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&family=Space+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <style>
         :root {
-            --bg-color: #fcfcfc;
-            --card-bg: #ffffff;
-            --text-main: #2d3436;
-            --text-dim: #636e72;
-            --accent: #00cec9; /* Subtle teal for a clean look */
-            --shadow: 0 10px 30px rgba(0,0,0,0.05);
-            --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            --glass: rgba(255, 255, 255, 0.45);
+            --text: #1d1d1f;
+            --accent: #23a6d5;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
         body {
-            background-color: var(--bg-color);
             font-family: 'Inter', sans-serif;
-            color: var(--text-main);
-            display: flex;
-            justify-content: center;
-            align-items: center;
             min-height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
             padding: 20px;
         }
 
-        .container {
-            max-width: 400px;
-            width: 100%;
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border-radius: 40px;
+            padding: 40px 25px;
+            width: 100%; max-width: 400px;
             text-align: center;
-            animation: fadeIn 1s ease-out;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
         }
 
-        /* Profile Section */
-        .profile-img {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 4px solid #fff;
-            box-shadow: var(--shadow);
-            margin-bottom: 20px;
-            transition: var(--transition);
+        .profile-img { width: 120px; height: 120px; border-radius: 35px; border: 4px solid #fff; margin-bottom: 20px; }
+
+        h1 { font-family: 'Playfair Display', serif; color: #fff; font-size: 2.4rem; margin-bottom: 5px; }
+
+        .bio { font-family: 'Space Mono', monospace; color: #fff; font-size: 0.8rem; margin-bottom: 30px; opacity: 0.9; }
+
+        .btn {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 18px; margin-bottom: 15px; border-radius: 20px;
+            display: flex; align-items: center; justify-content: space-between;
+            text-decoration: none; color: var(--text); font-weight: 600;
+            transition: 0.3s; cursor: pointer;
         }
-        .profile-img:hover { transform: scale(1.05); }
+        .btn:hover { transform: translateY(-3px); background: #fff; }
 
-        h1 { font-weight: 600; font-size: 1.5rem; margin-bottom: 8px; }
-        
-        .bio {
-            color: var(--text-dim);
-            font-size: 0.95rem;
-            line-height: 1.5;
-            margin-bottom: 30px;
-            padding: 0 20px;
-        }
-
-        /* Options/Links */
-        .links-container { display: flex; flex-direction: column; gap: 15px; }
-
-        .link-card {
-            background: var(--card-bg);
-            padding: 16px;
-            border-radius: 16px;
-            text-decoration: none;
-            color: var(--text-main);
-            font-weight: 400;
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            border: 1px solid rgba(0,0,0,0.02);
-            opacity: 0;
-            animation: slideUp 0.5s ease forwards;
-        }
-
-        .link-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
-            background: #fff;
-        }
-
-        /* Staggered Animation for Links */
-        .link-card:nth-child(1) { animation-delay: 0.2s; }
-        .link-card:nth-child(2) { animation-delay: 0.4s; }
-        .link-child(3) { animation-delay: 0.6s; }
-
-        /* Footer / Socials */
+        /* FOOTER STYLE */
         footer {
-            margin-top: 40px;
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            animation: fadeIn 2s ease;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+            display: flex; justify-content: center; gap: 20px;
         }
+        footer a { color: #fff; font-size: 1.6rem; transition: 0.3s; }
+        footer a:hover { transform: scale(1.2); color: #ffeaa7; }
 
-        footer a {
-            color: var(--text-dim);
-            font-size: 1.5rem;
-            transition: var(--transition);
+        /* MODAL SYSTEM */
+        .modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(10px);
+            display: none; justify-content: center; align-items: center; z-index: 100;
         }
+        .modal-content { background: #fff; padding: 30px; border-radius: 30px; width: 90%; max-width: 380px; position: relative; }
+        .close { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; }
 
-        footer a:hover {
-            color: var(--text-main);
-            transform: translateY(-3px);
-        }
-
-        /* Keyframes */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        /* Playlist Buttons */
+        .pl-link { display: block; padding: 15px; margin: 10px 0; border-radius: 15px; text-decoration: none; color: #fff; font-weight: 700; text-align: center; }
+        .pl-bn { background: #FF4B2B; } .pl-hi { background: #FDC830; color: #333; } .pl-en { background: #1DB954; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <img src="profile.jpg" alt="Jarif Ahsan" class="profile-img">
+<div class="glass-card">
+    <img src="profile.jpg" alt="Jarif Ahsan" class="profile-img">
+    <h1>Jarif Ahsan</h1>
+    <p class="bio">> LIFESTYLE • GAMING • MUSIC</p>
 
-        <h1>Jarif Ahsan</h1>
-        <p class="bio">Curating a life of intent and aesthetics. <br> Exploring the intersection of slow living and tech.</p>
-
-        <div class="links-container">
-            <a href="#" class="link-card">✨ The Lifestyle Edit</a>
-            <a href="#" class="link-card">☕ My Daily Routine</a>
-            <a href="#" class="link-card">📖 Current Reads</a>
-            <a href="mailto:your-email@example.com" class="link-card">📩 Let's Collaborate</a>
-        </div>
-
-        <footer>
-            <a href="https://www.facebook.com/introvertjarifahsan/" target="_blank" title="Facebook">
-                <i class="fab fa-facebook"></i>
-            </a>
-            <a href="https://www.youtube.com/@steam_Gamerz" target="_blank" title="YouTube">
-                <i class="fab fa-youtube"></i>
-            </a>
-            <a href="https://wa.me/8801779954541" target="_blank" title="WhatsApp">
-                <i class="fab fa-whatsapp"></i>
-            </a>
-        </footer>
+    <div class="links-container">
+        <div class="btn" onclick="openModal('gallery')"><span>📸 Aesthetic Gallery</span><i class="fas fa-images"></i></div>
+        <div class="btn" onclick="openModal('gaming')"><span>🎮 The Gaming Den</span><i class="fas fa-bolt"></i></div>
+        <div class="btn" onclick="openModal('music')"><span>🎧 On Repeat</span><i class="fas fa-play"></i></div>
     </div>
+
+    <footer>
+        <a href="https://www.facebook.com/introvertjarifahsan/" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://www.youtube.com/@steam_Gamerz" target="_blank"><i class="fab fa-youtube"></i></a>
+        <a href="https://wa.me/8801779954541" target="_blank"><i class="fab fa-whatsapp"></i></a>
+    </footer>
+</div>
+
+<div id="music" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('music')">×</span>
+        <h2 style="margin-bottom:15px">My Playlists</h2>
+        <a href="https://open.spotify.com/playlist/3QlXL3RD2FO5LMOuqGLkld?si=X0yX3oKtTp-GMzIO562Y4A&pi=BwkuXimKRT-Nl" target="_blank" class="pl-link pl-bn">Bangla Songs</a>
+        <a href="https://open.spotify.com/playlist/6w0o2S6MMkC9e0eW9UV85H?si=CKvYGy3aSpWTandFhuFcFQ&pi=jWWaSdkjS0erK" target="_blank" class="pl-link pl-hi">Hindi Songs</a>
+        <a href="https://open.spotify.com/playlist/6terxf5tS80BjAVSMgTisj?si=tnlNOtGfTbe_ZpIzhKuqaQ&pi=YLZxI0L9TBmzC" target="_blank" class="pl-link pl-en">English Songs</a>
+    </div>
+</div>
+
+<script>
+    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
+    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
+    window.onclick = function(e) { if(e.target.className === 'modal') e.target.style.display = 'none'; }
+</script>
 
 </body>
 </html>
