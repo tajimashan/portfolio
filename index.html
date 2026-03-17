@@ -11,7 +11,6 @@
         :root {
             --glass: rgba(255, 255, 255, 0.45);
             --text: #1d1d1f;
-            --accent: #23a6d5;
         }
 
         body {
@@ -21,7 +20,7 @@
             background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
             background-size: 400% 400%;
             animation: gradientBG 15s ease infinite;
-            padding: 20px;
+            padding: 20px; margin: 0;
         }
 
         @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
@@ -34,45 +33,48 @@
             width: 100%; max-width: 400px;
             text-align: center;
             box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,0.3);
         }
 
-        .profile-img { width: 120px; height: 120px; border-radius: 35px; border: 4px solid #fff; margin-bottom: 20px; }
-
-        h1 { font-family: 'Playfair Display', serif; color: #fff; font-size: 2.4rem; margin-bottom: 5px; }
-
-        .bio { font-family: 'Space Mono', monospace; color: #fff; font-size: 0.8rem; margin-bottom: 30px; opacity: 0.9; }
+        .profile-img { width: 120px; height: 120px; border-radius: 35px; border: 4px solid #fff; margin-bottom: 20px; object-fit: cover; }
+        h1 { font-family: 'Playfair Display', serif; color: #fff; font-size: 2.4rem; margin: 0; }
+        .bio { font-family: 'Space Mono', monospace; color: #fff; font-size: 0.8rem; margin: 10px 0 30px; opacity: 0.9; letter-spacing: 1px; }
 
         .btn {
             background: rgba(255, 255, 255, 0.85);
             padding: 18px; margin-bottom: 15px; border-radius: 20px;
             display: flex; align-items: center; justify-content: space-between;
             text-decoration: none; color: var(--text); font-weight: 600;
-            transition: 0.3s; cursor: pointer;
+            transition: 0.3s; cursor: pointer; border: none; width: 100%;
         }
-        .btn:hover { transform: translateY(-3px); background: #fff; }
+        .btn:hover { transform: translateY(-3px); background: #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
 
-        /* FOOTER STYLE */
         footer {
-            margin-top: 30px;
-            padding-top: 20px;
+            margin-top: 30px; padding-top: 20px;
             border-top: 1px solid rgba(255,255,255,0.2);
-            display: flex; justify-content: center; gap: 20px;
+            display: flex; justify-content: center; gap: 25px;
         }
         footer a { color: #fff; font-size: 1.6rem; transition: 0.3s; }
-        footer a:hover { transform: scale(1.2); color: #ffeaa7; }
+        footer a:hover { transform: translateY(-5px); color: #ffeaa7; }
 
-        /* MODAL SYSTEM */
+        /* MODAL STYLE */
         .modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6); backdrop-filter: blur(10px);
-            display: none; justify-content: center; align-items: center; z-index: 100;
+            background: rgba(0,0,0,0.7); backdrop-filter: blur(10px);
+            display: none; justify-content: center; align-items: center; z-index: 1000;
         }
-        .modal-content { background: #fff; padding: 30px; border-radius: 30px; width: 90%; max-width: 380px; position: relative; }
-        .close { position: absolute; top: 15px; right: 20px; font-size: 1.5rem; cursor: pointer; }
+        .modal-content { 
+            background: #fff; padding: 30px; border-radius: 30px; 
+            width: 85%; max-width: 400px; position: relative; 
+            text-align: left; animation: slideIn 0.3s ease-out;
+        }
+        @keyframes slideIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        .close { position: absolute; top: 15px; right: 20px; font-size: 1.8rem; cursor: pointer; color: #888; }
 
-        /* Playlist Buttons */
-        .pl-link { display: block; padding: 15px; margin: 10px 0; border-radius: 15px; text-decoration: none; color: #fff; font-weight: 700; text-align: center; }
-        .pl-bn { background: #FF4B2B; } .pl-hi { background: #FDC830; color: #333; } .pl-en { background: #1DB954; }
+        /* Gaming Stats Table */
+        .gaming-stats { width: 100%; border-collapse: collapse; margin-top: 15px; }
+        .gaming-stats td { padding: 10px; border-bottom: 1px solid #eee; font-size: 0.9rem; }
+        .stat-label { font-weight: 700; color: #555; width: 40%; }
     </style>
 </head>
 <body>
@@ -83,9 +85,9 @@
     <p class="bio">> LIFESTYLE • GAMING • MUSIC</p>
 
     <div class="links-container">
-        <div class="btn" onclick="openModal('gallery')"><span>📸 Aesthetic Gallery</span><i class="fas fa-images"></i></div>
-        <div class="btn" onclick="openModal('gaming')"><span>🎮 The Gaming Den</span><i class="fas fa-bolt"></i></div>
-        <div class="btn" onclick="openModal('music')"><span>🎧 On Repeat</span><i class="fas fa-play"></i></div>
+        <button class="btn" onclick="openModal('gallery')"><span>📸 Aesthetic Gallery</span><i class="fas fa-images"></i></button>
+        <button class="btn" onclick="openModal('gaming')"><span>🎮 The Gaming Den</span><i class="fas fa-bolt"></i></button>
+        <button class="btn" onclick="openModal('music')"><span>🎧 On Repeat</span><i class="fas fa-play"></i></button>
     </div>
 
     <footer>
@@ -95,20 +97,44 @@
     </footer>
 </div>
 
+<div id="gaming" class="modal">
+    <div class="modal-content">
+        <span class="close" onclick="closeModal('gaming')">×</span>
+        <h2 style="color:#1d1d1f; margin-top:0"><i class="fas fa-gamepad"></i> Setup Specs</h2>
+        <p style="font-size: 0.85rem; color: #666;">Current Gear: <strong>iQOO Z9 Turbo</strong></p>
+        <table class="gaming-stats">
+            <tr><td class="stat-label">Chipset</td><td>Snapdragon 8s Gen 3</td></tr>
+            <tr><td class="stat-label">Refresh Rate</td><td>144Hz AMOLED</td></tr>
+            <tr><td class="stat-label">Battery</td><td>6000 mAh (Turbo)</td></tr>
+            <tr><td class="stat-label">Charging</td><td>80W Fast Charge</td></tr>
+        </table>
+        <p style="margin-top:20px; font-style: italic; font-size: 0.8rem; color: #23a6d5;">"Playing at peak performance."</p>
+    </div>
+</div>
+
 <div id="music" class="modal">
     <div class="modal-content">
         <span class="close" onclick="closeModal('music')">×</span>
-        <h2 style="margin-bottom:15px">My Playlists</h2>
-        <a href="https://open.spotify.com/playlist/3QlXL3RD2FO5LMOuqGLkld?si=X0yX3oKtTp-GMzIO562Y4A&pi=BwkuXimKRT-Nl" target="_blank" class="pl-link pl-bn">Bangla Songs</a>
-        <a href="https://open.spotify.com/playlist/6w0o2S6MMkC9e0eW9UV85H?si=CKvYGy3aSpWTandFhuFcFQ&pi=jWWaSdkjS0erK" target="_blank" class="pl-link pl-hi">Hindi Songs</a>
-        <a href="https://open.spotify.com/playlist/6terxf5tS80BjAVSMgTisj?si=tnlNOtGfTbe_ZpIzhKuqaQ&pi=YLZxI0L9TBmzC" target="_blank" class="pl-link pl-en">English Songs</a>
+        <h2 style="margin-top:0">My Playlists</h2>
+        <a href="https://open.spotify.com/playlist/3QlXL3RD2FO5LMOuqGLkld?si=X0yX3oKtTp-GMzIO562Y4A&pi=BwkuXimKRT-Nl" target="_blank" style="display:block; background:#FF4B2B; color:#fff; padding:15px; border-radius:15px; text-decoration:none; margin-bottom:10px; text-align:center; font-weight:600;">Bangla Songs</a>
+        <a href="https://open.spotify.com/playlist/6w0o2S6MMkC9e0eW9UV85H?si=CKvYGy3aSpWTandFhuFcFQ&pi=jWWaSdkjS0erK" target="_blank" style="display:block; background:#FDC830; color:#333; padding:15px; border-radius:15px; text-decoration:none; margin-bottom:10px; text-align:center; font-weight:600;">Hindi Songs</a>
+        <a href="https://open.spotify.com/playlist/6terxf5tS80BjAVSMgTisj?si=tnlNOtGfTbe_ZpIzhKuqaQ&pi=YLZxI0L9TBmzC" target="_blank" style="display:block; background:#1DB954; color:#fff; padding:15px; border-radius:15px; text-decoration:none; text-align:center; font-weight:600;">English Songs</a>
     </div>
 </div>
 
 <script>
-    function openModal(id) { document.getElementById(id).style.display = 'flex'; }
-    function closeModal(id) { document.getElementById(id).style.display = 'none'; }
-    window.onclick = function(e) { if(e.target.className === 'modal') e.target.style.display = 'none'; }
+    function openModal(id) {
+        document.getElementById(id).style.display = 'flex';
+    }
+    function closeModal(id) {
+        document.getElementById(id).style.display = 'none';
+    }
+    // Close modal if user clicks outside of the content
+    window.onclick = function(event) {
+        if (event.target.className === 'modal') {
+            event.target.style.display = 'none';
+        }
+    }
 </script>
 
 </body>
