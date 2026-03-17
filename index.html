@@ -3,124 +3,142 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jarif Ahsan | Terminal</title>
+    <title>Jarif Ahsan | Hub</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: #050505;
-            color: #00FF41; /* Classic Terminal Green */
-            font-family: 'Share Tech Mono', monospace;
+            background: #05070a;
+            color: #ffffff;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            margin: 0;
-            overflow: hidden;
+            min-height: 100vh;
         }
 
-        /* CRT Screen Scanline Effect */
-        body::before {
-            content: " ";
-            display: block;
-            position: absolute;
-            top: 0; left: 0; bottom: 0; right: 0;
-            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
-                        linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-            z-index: 2;
-            background-size: 100% 2px, 3px 100%;
-            pointer-events: none;
-        }
-
-        .terminal-window {
+        /* The Main Hub Card */
+        .hub-card {
             width: 90%;
-            max-width: 600px;
-            padding: 20px;
-            border: 1px solid #00FF41;
-            box-shadow: 0 0 15px rgba(0, 255, 65, 0.2);
-            position: relative;
-            background: rgba(0, 20, 0, 0.9);
+            max-width: 400px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 32px;
+            padding: 40px 24px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
 
-        .header {
-            border-bottom: 1px solid #00FF41;
-            padding-bottom: 10px;
+        .profile-container {
+            position: relative;
+            display: inline-block;
             margin-bottom: 20px;
-            font-weight: bold;
+        }
+
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 30px; /* Modern "Squircle" look */
+            background: linear-gradient(135deg, #00d2ff, #3a7bd5);
+            padding: 3px;
+        }
+
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            border-radius: 27px;
+            object-fit: cover;
+            background: #05070a;
+        }
+
+        h1 { font-size: 1.8rem; letter-spacing: -1px; margin-bottom: 8px; }
+        
+        .tagline {
+            font-size: 0.9rem;
+            color: #8892b0;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        /* Modern Toolkit Badge */
+        .badge-container {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
         }
 
-        .glitch {
-            font-size: 2rem;
-            position: relative;
+        .badge {
+            background: rgba(0, 210, 255, 0.1);
+            color: #00d2ff;
+            padding: 6px 12px;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 700;
             text-transform: uppercase;
+            border: 1px solid rgba(0, 210, 255, 0.2);
         }
 
-        .main-content {
-            line-height: 1.6;
-        }
-
-        .command { color: #fff; }
-
-        .links-container {
-            margin-top: 30px;
-        }
-
-        .terminal-link {
-            display: block;
-            color: #00FF41;
+        /* Sleek Buttons */
+        .modern-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ffffff;
+            color: #05070a;
+            padding: 18px;
+            margin-bottom: 12px;
+            border-radius: 18px;
             text-decoration: none;
-            padding: 10px;
-            margin: 5px 0;
-            border: 1px dashed #00FF41;
-            transition: all 0.3s;
+            font-weight: 700;
+            transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
         }
 
-        .terminal-link:hover {
-            background: #00FF41;
-            color: #000;
-            cursor: pointer;
-            box-shadow: 0 0 10px #00FF41;
+        .modern-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+            background: #00d2ff;
+            color: #fff;
         }
 
-        .blink {
-            animation: blinker 1s linear infinite;
+        .secondary-link {
+            background: rgba(255, 255, 255, 0.05);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
-        @keyframes blinker {
-            50% { opacity: 0; }
-        }
-
-        @media (max-width: 480px) {
-            .glitch { font-size: 1.4rem; }
+        .secondary-link:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #ffffff;
         }
     </style>
 </head>
 <body>
 
-<div class="terminal-window">
-    <div class="header">
-        <span>JARIF_OS_v1.0</span>
-        <span>[STATUS: ONLINE]</span>
-    </div>
-
-    <div class="main-content">
-        <div class="glitch">JARIF AHSAN</div>
-        <p><span class="command">C:\Users\Jarif></span> run learning_path.exe</p>
-        <p style="color: #888;">> C++ Logic Modules ... LOADED</p>
-        <p style="color: #888;">> HTML/CSS Structures ... LOADED</p>
-        
-        <div class="links-container">
-            <a href="YOUR_LINK_1" class="terminal-link">[01] VIEW_PROJECTS</a>
-            <a href="YOUR_LINK_2" class="terminal-link">[02] KNOWLEDGE_BASE</a>
-            <a href="https://instagram.com/your_username" class="terminal-link">[03] INSTAGRAM_FEED</a>
-            <a href="mailto:your@email.com" class="terminal-link">[04] SEND_SIGNAL (Email)</a>
+    <div class="hub-card">
+        <div class="profile-container">
+            <div class="profile-img">
+                <img src="logo.jpg" alt="JA" onerror="this.src='https://ui-avatars.com/api/?name=JA&background=05070a&color=00d2ff'">
+            </div>
         </div>
 
-        <p><span class="command">C:\Users\Jarif></span> <span class="blink">_</span></p>
+        <h1>Jarif Ahsan</h1>
+        <p class="tagline">Crafting logic with C++ and building modern web experiences.</p>
+
+        <div class="badge-container">
+            <span class="badge">C++</span>
+            <span class="badge">C</span>
+            <span class="badge">HTML</span>
+        </div>
+
+        <a href="#" class="modern-link">Explore My Projects</a>
+        <a href="https://instagram.com/yourusername" class="modern-link secondary-link">Instagram</a>
+        <a href="#" class="modern-link secondary-link">Current Workspace</a>
+
+        <p style="margin-top: 25px; font-size: 0.7rem; color: #444;">&copy; 2026 JARIF AHSAN</p>
     </div>
-</div>
 
 </body>
 </html>
